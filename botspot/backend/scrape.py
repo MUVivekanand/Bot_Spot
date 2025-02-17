@@ -221,10 +221,7 @@ def analyze_twitter_bot():
 
         # Convert to DataFrame and save as CSV
         df = pd.DataFrame(tweet_list)
-        df.to_csv(f"{username}_analysis.csv", index=False)
-
-        df = pd.read_csv(f"{username}_analysis.csv")
-        tweet_list = df.values.tolist()
+        df.to_csv(f"tweet_csvs\\{username}_analysis.csv", index=False)
 
         # Format prompt for GPT-4o
         prompt_template = ChatPromptTemplate.from_template("""
