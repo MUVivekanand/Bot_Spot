@@ -1,6 +1,6 @@
 ## BotSpot
 
-We built this BotSpot for a 24-hr Hackathon. This webapp detects the bot accounts in Instagram and Twitter and  has a minimalistic UI. the app asks for a username and scrapes the user details and pass into the models which we built and classify the user as bot or human.<br/>
+We built this BotSpot for a 24-hr Hackathon. This webapp detects the bot accounts in Instagram and Twitter and  has a minimalistic UI. The app asks for a username and scrapes the user details and pass into the models which we built and classify the user as bot or human.<br/>
 
 ### Models
 
@@ -9,5 +9,5 @@ We built this BotSpot for a 24-hr Hackathon. This webapp detects the bot account
 
 ### Tech Stack
 
-1.Frontend - React.js
+1.Frontend - React.js <br />
 2.Backend - Python AI/ML frameworks, Flask
