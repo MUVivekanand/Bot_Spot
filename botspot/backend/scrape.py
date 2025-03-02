@@ -5,7 +5,7 @@ import requests
 import pickle
 from io import BytesIO
 from dotenv import load_dotenv
-from langchain_openai import AzureChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 import os
 import tweepy
@@ -174,13 +174,13 @@ def proxy_image():
     except requests.RequestException:
         return jsonify({"error": "Failed to load image"}), 500
     
-llm = AzureChatOpenAI(
-    api_key=os.getenv("AZURE_KEY"),
-    api_version="2023-03-15-preview",
+llm = ChatGoogleGenerativeAI(
+    api_key=os.getenv("GEMINI_API_KEY"),
+    model="gemini-2.0-flash",
     temperature=0,
     max_tokens=None,
-    azure_endpoint=os.getenv("AZURE_ENDPOINT"),
-    azure_deployment="gpt-4o",
+    timeout=None,
+    max_retries=2
 )
 
 @app.route("/analyze_twitter_bot", methods=["POST"])
@@ -223,7 +223,7 @@ def analyze_twitter_bot():
         df = pd.DataFrame(tweet_list)
         df.to_csv(f"tweet_csvs\\{username}_analysis.csv", index=False)
 
-        # Format prompt for GPT-4o
+        # Format prompt for Gemini
         prompt_template = ChatPromptTemplate.from_template("""
             You are an expert in detecting Twitter bots based on tweet content and metadata.
 
@@ -239,7 +239,7 @@ def analyze_twitter_bot():
             Return the result with the bot probability and tell the model from which probability is taken is from BERT model and an explanation.
         """)
 
-        # Invoke GPT-4o
+        # Invoke Gemini
         response = llm.invoke(prompt_template.format(tweet_list=tweet_list))
         return jsonify({
             "username": username,
